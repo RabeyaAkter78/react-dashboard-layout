@@ -1,7 +1,17 @@
 import { Checkbox, Form, Input, Typography } from "antd";
 import brandlogo from "../../../assets/image/logo.png"
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { IoIosLock } from "react-icons/io";
+import { FaLockOpen } from "react-icons/fa";
 const SignIn = () => {
+    const [showpassword, setShowpassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowpassword(!showpassword)
+    }
+
+
     const onFinish = (values) => {
         console.log("Received values of form: ", values);
     };
@@ -47,13 +57,22 @@ const SignIn = () => {
                                     />
                                 </Form.Item>
                                 <Form.Item name="password" label={<p className=" text-md">Password</p>}>
-                                    <Input
-                                        required
-                                        style={{ padding: "6px" }}
-                                        className=" text-md"
-                                        type="password"
-                                        placeholder="Password"
-                                    />
+                                    <div className="relative flex justify-center items-center">
+                                        <Input
+                                            required
+                                            style={{ padding: "6px" }}
+                                            className=" text-md"
+                                            type={showpassword ? "password" : "text"}
+                                            placeholder="Password"
+                                        />
+                                        <div className="flex justify-center absolute right-0 px-3">
+                                            <button onClick={togglePasswordVisibility} type="button">
+
+                                                {showpassword ? (<IoIosLock className="" />) : (<FaLockOpen className="" />)}
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </Form.Item>
                                 <div className="flex justify-between items-center my-2">
                                     <Form.Item name="remember" valuePropName="checked" noStyle>
