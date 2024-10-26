@@ -4,7 +4,6 @@ import {
 import MainLayout from "../Layout/Main/Main";
 import Analytics from "../Pages/Analytics/Analytics";
 import SignIn from "../Pages/Auth/SignIn/SignIn";
-import Login from "../Pages/Auth/Login/Login";
 import ForgatePassword from "../Pages/Auth/ForgatePassword/ForgatePassword";
 import ResetPass from "../Pages/Auth/ResetPass/ResetPass";
 import Newpass from "../Pages/Auth/NewPass/Newpass";
@@ -16,10 +15,7 @@ export const router = createBrowserRouter([
         path: "/sign-in",
         element: <SignIn></SignIn>
     },
-    {
-        path: "/login",
-        element: <Login></Login>
-    },
+
     {
         path: "/forgate-password",
         element: <ForgatePassword></ForgatePassword>
@@ -37,7 +33,7 @@ export const router = createBrowserRouter([
         element: <Newpass></Newpass>
     },
     {
-        path: "/", 
+        path: "/",
         element: <MainLayout />,
         children: [
             {

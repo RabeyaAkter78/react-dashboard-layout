@@ -8,11 +8,11 @@ const SignIn = () => {
     return (
         <div className="bg-[ffffff]">
             <div className="container mx-auto">
-                <div className="w-full flex flex-col md:flex-row justify-between items-center gap-20">
-                    <div className="w-[50%]">
+                <div className="w-full flex flex-col md:flex-row justify-between items-center gap-20  ">
+                    <div className="w-full md:w-[50%] px-3 mt-10">
                         <img src={brandlogo} alt="brandlogo" className="h-full w-full object-cover" />
                     </div>
-                    <div className="w-[50%] ">
+                    <div className="w-full md:w-[50%] ">
                         <div className="py-16 md:py-0 h-[100vh] w-full flex items-center justify-center ">
                             <Form
                                 name="login"
@@ -20,7 +20,7 @@ const SignIn = () => {
                                 style={{ maxWidth: 550 }}
                                 onFinish={onFinish}
                                 layout="vertical"
-                                className=" bg-[#eef6ff] py-10 mx-4 md:mx-0 px-6 md:px-10 rounded-2xl w-[450px] border-2 shadow-xl"
+                                className=" bg-[#eef6ff] py-28 mx-4 md:mx-0 px-6 md:px-10 rounded-2xl w-[450px] border-2 shadow-xl"
                             >
                                 <div className="mb-4 text-center">
                                     <h2
@@ -71,10 +71,10 @@ const SignIn = () => {
                                         </p>
                                     </Link>
                                 </div>
-                                <Form.Item className="text-center">
+                                <Form.Item className="text-center my-10">
                                     <Link to="/">
                                         <button
-                                            className="bg-[#2c9ef1] text-center w-full  p-2 font-bold text-2xl   text-white px-10 py-2 rounded-md shadow-lg"
+                                            className="bg-[#2c9ef1] text-center w-full  p-2 font-semibold    text-white px-10 py-2 rounded-md shadow-lg"
                                             type="submit"
                                         >
                                             Login
