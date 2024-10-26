@@ -1,10 +1,12 @@
+/* eslint-disable react/prop-types */
 import brandlogo from "../../assets/image/logo.png";
 import homeIcon from "../../assets/image/home.png"; // Example icon for "Dashboard"
 import { useState } from "react";
 import { FaPlus, FaInfoCircle, FaTrophy, FaBook, FaCog, FaSignOutAlt } from "react-icons/fa"; // Import necessary icons
 import { FaDashcube } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ closeDrawer }) => {
     const [activeRoute, setActiveRoute] = useState("Dashboard");
     const [showSettings, setShowSettings] = useState(false);
 
@@ -26,7 +28,6 @@ const Sidebar = () => {
         {
             icon: <FaCog />,
             label: "Setting",
-            link: "/settings",
             isDropdown: true,
             subItems: [{ label: "Sub-setting 1", link: "/sub-setting-1" }]
         },
@@ -41,30 +42,39 @@ const Sidebar = () => {
             <div className="flex flex-col">
                 {menuItems.map((item, index) => (
                     <div key={index}>
-                        <div
-                            className={`w-full flex justify-between items-center px-5 py-2 cursor-pointer rounded-lg mb-2 ${activeRoute === item.label ? "bg-blue-500 text-white font-bold" : "bg-blue-100 text-blue-500"
-                                }`}
-                            onClick={() => {
-                                handleActiveRoute(item.label);
-                                if (item.isDropdown) toggleDropdown(item.label);
-                            }}
-                        >
-                            <span className="flex items-center gap-2">
-                                {item.icon}
-                                <p>{item.label}</p>
-                            </span>
-                        </div>
+                        <Link to={item.link} onClick={!item.isDropdown ? closeDrawer : undefined}>
+                            <div
+                                className={`w-full flex justify-between items-center px-5 py-2 cursor-pointer rounded-lg mb-2 ${activeRoute === item.label ? "bg-blue-500 text-white font-bold" : "bg-blue-100 text-blue-500"
+                                    }`}
+                                onClick={() => {
+                                    handleActiveRoute(item.label);
+                                    if (item.isDropdown) toggleDropdown(item.label);
+                                }}
+                            >
+                                <span className="flex items-center gap-2">
+                                    {item.icon}
+                                    <p>{item.label}</p>
+                                </span>
+                            </div>
+                        </Link>
                         {item.isDropdown && showSettings && item.subItems && (
                             <div className="pl-10">
                                 {item.subItems.map((subItem, subIndex) => (
-                                    <div
+                                    <Link
+                                        to={subItem.link}
                                         key={subIndex}
-                                        className={`py-2 cursor-pointer ${activeRoute === subItem.label ? "text-blue-500 font-semibold" : "text-gray-700"
-                                            }`}
-                                        onClick={() => handleActiveRoute(subItem.label)}
+                                        onClick={() => {
+                                            handleActiveRoute(subItem.label);
+                                            closeDrawer(); // Close drawer only when a sub-item is selected
+                                        }}
                                     >
-                                        {subItem.label}
-                                    </div>
+                                        <div
+                                            className={`py-2 cursor-pointer ${activeRoute === subItem.label ? "text-blue-500 font-semibold" : "text-gray-700"
+                                                }`}
+                                        >
+                                            {subItem.label}
+                                        </div>
+                                    </Link>
                                 ))}
                             </div>
                         )}
