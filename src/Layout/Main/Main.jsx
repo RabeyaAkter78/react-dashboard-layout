@@ -60,7 +60,7 @@ const MainLayout = () => {
                             <Sidebar onClose={closeDrawer} />
                         </Drawer>
                     ) : (
-                        <div className="w-[20%] bg-red-500">
+                        <div className="w-[20%] ">
                             <Sidebar />
                         </div>
                     )}
