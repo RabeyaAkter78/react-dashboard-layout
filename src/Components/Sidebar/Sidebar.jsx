@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import brandlogo from "../../assets/image/logo.png";
+
 import homeIcon from "../../assets/image/home.png"; // Example icon for "Dashboard"
 import { useState } from "react";
 import { FaPlus, FaInfoCircle, FaTrophy, FaBook, FaCog, FaSignOutAlt } from "react-icons/fa"; // Import necessary icons
@@ -35,16 +35,14 @@ const Sidebar = ({ closeDrawer }) => {
     ];
 
     return (
-        <div className="px-5 w-64">
-            <div className="my-10">
-                <img src={brandlogo} alt="brandLogo" className="w-full" />
-            </div>
+        <div className="px-5 w-64 ">
+
             <div className="flex flex-col">
                 {menuItems.map((item, index) => (
                     <div key={index}>
                         <Link to={item.link} onClick={!item.isDropdown ? closeDrawer : undefined}>
                             <div
-                                className={`w-full flex justify-between items-center px-5 py-2 cursor-pointer rounded-lg mb-2 ${activeRoute === item.label ? "bg-blue-500 text-white font-bold" : "bg-blue-100 text-blue-500"
+                                className={`w-full flex justify-between items-center px-5 py-2 cursor-pointer rounded-lg mb-2 ${activeRoute === item.label ? "bg-primary text-white font-bold" : "bg-blue-100 text-primary"
                                     }`}
                                 onClick={() => {
                                     handleActiveRoute(item.label);
@@ -69,7 +67,7 @@ const Sidebar = ({ closeDrawer }) => {
                                         }}
                                     >
                                         <div
-                                            className={`py-2 cursor-pointer ${activeRoute === subItem.label ? "text-blue-500 font-semibold" : "text-gray-700"
+                                            className={`py-2 cursor-pointer ${activeRoute === subItem.label ? "text-primary font-semibold" : "text-gray-700"
                                                 }`}
                                         >
                                             {subItem.label}
