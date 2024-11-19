@@ -8,6 +8,7 @@ import ForgatePassword from "../Pages/Auth/ForgatePassword/ForgatePassword";
 import ResetPass from "../Pages/Auth/ResetPass/ResetPass";
 import Newpass from "../Pages/Auth/NewPass/Newpass";
 import VerifyPass from "../Pages/Auth/VerifyPass/VerifyPass";
+import Chat from "../Pages/ChatComponent/Chat";
 
 
 export const router = createBrowserRouter([
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Analytics />
+            },
+            {
+                path: "/chat",
+                element: <Chat></Chat>
             }
         ]
     },
