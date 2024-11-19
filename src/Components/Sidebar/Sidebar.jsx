@@ -1,85 +1,144 @@
 /* eslint-disable react/prop-types */
-
-import homeIcon from "../../assets/image/home.png"; // Example icon for "Dashboard"
 import { useState } from "react";
-import { FaPlus, FaInfoCircle, FaTrophy, FaBook, FaCog, FaSignOutAlt } from "react-icons/fa"; // Import necessary icons
-import { FaDashcube } from "react-icons/fa6";
+import { AiOutlineDashboard, AiOutlineSetting } from "react-icons/ai";
+import { FiUser, FiLogOut } from "react-icons/fi";
+import { BsBox, BsChat, BsGraphUp } from "react-icons/bs";
+import { FaUsers } from "react-icons/fa";
+import { BiChevronDown } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ closeDrawer }) => {
-    const [activeRoute, setActiveRoute] = useState("Dashboard");
+    const [active, setActive] = useState("Dashboard");
+
     const [showSettings, setShowSettings] = useState(false);
 
     const handleActiveRoute = (item) => {
-        setActiveRoute(item);
+        setActive(item);
+        setShowSettings(false);
+    };
+
+    const handleSubItemClick = (subItem) => {
+        setActive(subItem);
+        closeDrawer();
     };
 
     const toggleDropdown = (item) => {
-        setShowSettings(item === "Setting" ? !showSettings : false);
+
+        setShowSettings(item === "Settings");
     };
 
     const menuItems = [
-        { icon: <img src={homeIcon} alt="home" className="" />, label: "Dashboard", link: "/" },
-        { icon: <FaDashcube />, label: "Sponsor", link: "/sponsor" },
-        { icon: <FaPlus />, label: "Add Question", link: "/add-question" },
-        { icon: <FaInfoCircle />, label: "Info Mode", link: "/info-mode" },
-        { icon: <FaTrophy />, label: "Leader Boards", link: "/leader-boards" },
-        { icon: <FaBook />, label: "Text Book", link: "/text-book" },
+        { icon: <AiOutlineDashboard className="h-5 w-5" />, label: "Dashboard", Link: "/" },
+        { icon: <FiUser className="h-5 w-5" />, label: "User Details", Link: "/allUser" },
+        { icon: <BsGraphUp className="h-5 w-5" />, label: "Salons Details", Link: "/salonsDetails" },
+        { icon: <BsBox className="h-5 w-5" />, label: "Salons Services", Link: "/salonsServices" },
+        { icon: <BsChat className="h-5 w-5" />, label: "Chat", Link: "/chat" },
+
         {
-            icon: <FaCog />,
-            label: "Setting",
+            icon: <AiOutlineSetting className="h-5 w-5" />,
+            label: "Settings",
             isDropdown: true,
-            subItems: [{ label: "Sub-setting 1", link: "/sub-setting-1" }]
+            subItems: [
+                { label: "Slider Setting", Link: "/slider" },
+                { label: "About Us", Link: "/aboutUs" },
+                { label: "Privacy Policy", Link: "/privacyPolicy" },
+                { label: "Terms & Condition", Link: "/termsCondition" },
+            ],
         },
-        { icon: <FaSignOutAlt />, label: "Logout", link: "/logout" },
+        { icon: <FaUsers className="h-5 w-5" />, label: "Orders Transection", Link: "/ordersTransection" },
+
+
     ];
 
     return (
-        <div className="px-5 w-64 ">
+        <div className="">
+            <div className=" flex flex-col md:h-full">
+                <div className="flex flex-col justify-end items-end gap-2 md:my-5 mb-10">
+                    {menuItems.map((item) => (
+                        <div key={item.label}>
+                            <Link to={item.Link} onClick={!item.isDropdown ? closeDrawer : undefined}>
+                                <div
+                                    className={`w-52 flex justify-between items-center px-5 py-2 cursor-pointer ${active === item.label ? "rounded-l-3xl bg-primary text-white  hover:text-white" : "bg-white text-black hover:text-black"}`}
+                                    onClick={() => (item.isDropdown ? toggleDropdown(item.label) : handleActiveRoute(item.label))}
+                                >
 
-            <div className="flex flex-col">
-                {menuItems.map((item, index) => (
-                    <div key={index}>
-                        <Link to={item.link} onClick={!item.isDropdown ? closeDrawer : undefined}>
-                            <div
-                                className={`w-full flex justify-between items-center px-5 py-2 cursor-pointer rounded-lg mb-2 ${activeRoute === item.label ? "bg-primary text-white font-bold" : "bg-blue-100 text-primary"
-                                    }`}
-                                onClick={() => {
-                                    handleActiveRoute(item.label);
-                                    if (item.isDropdown) toggleDropdown(item.label);
-                                }}
-                            >
-                                <span className="flex items-center gap-2">
-                                    {item.icon}
-                                    <p>{item.label}</p>
-                                </span>
-                            </div>
-                        </Link>
-                        {item.isDropdown && showSettings && item.subItems && (
-                            <div className="pl-10">
-                                {item.subItems.map((subItem, subIndex) => (
-                                    <Link
-                                        to={subItem.link}
-                                        key={subIndex}
-                                        onClick={() => {
-                                            handleActiveRoute(subItem.label);
-                                            closeDrawer(); // Close drawer only when a sub-item is selected
-                                        }}
-                                    >
-                                        <div
-                                            className={`py-2 cursor-pointer ${activeRoute === subItem.label ? "text-primary font-semibold" : "text-gray-700"
-                                                }`}
-                                        >
-                                            {subItem.label}
+                                    <div className={`${active === item.label ? "text-white hover:text-white" : "bg-white text-black hover:text-black"}`} >
+
+                                        <div className="flex items-center gap-3">
+                                            {item.icon}
+                                            {!item.isDropdown ? (
+                                                <p>{item.label}</p>
+                                            ) : (
+                                                <div className="flex items-center justify-between w-full">
+                                                    <p>{item.label}</p>
+                                                    <BiChevronDown />
+
+                                                </div>
+                                            )}
                                         </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
+
+                                    </div>
+
+                                </div>
+                            </Link>
+
+
+
+                            {/* Dropdown for Settings */}
+                            {item.label === "Settings" && showSettings && (
+                                <div className="flex flex-col">
+                                    {item.subItems.map((subItem) => (
+                                        <Link to={subItem.Link} key={subItem.label}>
+                                            <div
+
+                                                className={`py-2 px-5 cursor-pointer ${active === subItem.label ? "text-white bg-red-300 font-bold" : "text-black bg-white"}`}
+                                                onClick={() => handleSubItemClick(subItem.label)}
+                                            >
+                                                {subItem.label}
+
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Dropdown for Content */}
+                            {item.label === "Content" && (
+                                <div className="flex flex-col">
+                                    {item.subItems.map((subItem) => (
+                                        <Link to={subItem.Link} key={subItem.label}>
+                                            <div
+
+                                                className={`py-2 px-5 cursor-pointer ${active === subItem.label ? "text-white bg-red-300 font-bold" : "text-black bg-white"}`}
+                                                onClick={() => handleSubItemClick(subItem.label)}
+                                            >
+                                                {subItem.label}
+
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+
+                    {/* Logout */}
+                    <Link className="text-black hover:text-black" to="/auth/login">
+                        <div
+                            className="bg-pink-300 w-52 md:mt-20 py-3 flex justify-center items-center cursor-pointer hover:bg-red-200"
+                            onClick={() => console.log("Logged out")}
+                        >
+                            <FiLogOut className="text-xl" />
+
+                            <p className="ml-2">Log out</p>
+
+                        </div>
+                    </Link>
+                </div>
             </div>
-        </div>
+
+
+        </div >
     );
 };
 

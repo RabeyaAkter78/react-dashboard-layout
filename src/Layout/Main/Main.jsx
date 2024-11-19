@@ -27,6 +27,7 @@ const MainLayout = () => {
 
     return (
         <div>
+            {/* haeder */}
             <div className="h-20 bg-primary flex justify-between  items-center px-2 md:px-20 gap-2">
                 {isMobile && (
                     <GiHamburgerMenu onClick={toggleDrawer} className="h-5 w-5 cursor-pointer text-white" />
@@ -63,6 +64,7 @@ const MainLayout = () => {
                     </div>
                 </div>
             </div>
+
             <ConfigProvider
                 theme={{
                     components: {
@@ -76,7 +78,7 @@ const MainLayout = () => {
                     }
                 }}
             >
-                <div className="w-full flex">
+                <div className="w-full flex ">
                     {isMobile ? (
                         <Drawer
                             title="Menu"
@@ -90,7 +92,7 @@ const MainLayout = () => {
                             <Sidebar onClose={closeDrawer} />
                         </Drawer>
                     ) : (
-                        <div className="w-[20%] ">
+                        <div className="w-[30%] lg:w-[20%] ">
                             <Sidebar />
                         </div>
                     )}
