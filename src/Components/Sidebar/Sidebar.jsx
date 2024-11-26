@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { AiOutlineDashboard, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { FiUser, FiLogOut } from "react-icons/fi";
-import { BsBox, BsChat, BsGraphUp } from "react-icons/bs";
-import { FaUsers } from "react-icons/fa";
+import { BsGraphUp } from "react-icons/bs";
+import { FaQuestionCircle, FaUsers } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
 import { Link } from "react-router-dom";
-
+import { MdDashboard, MdMenuBook, MdPolicy, MdPrivacyTip } from "react-icons/md";
+import { LuCircleDollarSign } from "react-icons/lu";
+import { FaMoneyCheckAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { GrAnalytics } from "react-icons/gr";
+import { RiTerminalWindowLine } from "react-icons/ri";
 const Sidebar = ({ closeDrawer }) => {
     const [active, setActive] = useState("Dashboard");
 
@@ -23,31 +28,31 @@ const Sidebar = ({ closeDrawer }) => {
     };
 
     const toggleDropdown = (item) => {
-
         setShowSettings(item === "Settings");
     };
 
     const menuItems = [
-        { icon: <AiOutlineDashboard className="h-5 w-5" />, label: "Dashboard", Link: "/" },
-        { icon: <FiUser className="h-5 w-5" />, label: "User Details", Link: "/allUser" },
-        { icon: <BsGraphUp className="h-5 w-5" />, label: "Salons Details", Link: "/salonsDetails" },
-        { icon: <BsBox className="h-5 w-5" />, label: "Salons Services", Link: "/salonsServices" },
-        { icon: <BsChat className="h-5 w-5" />, label: "Chat", Link: "/chat" },
+        { icon: <MdDashboard className="h-5 w-5" />, label: "dashboard", Link: "/" },
+        { icon: <FiUser className="h-5 w-5" />, label: "Donar List", Link: "/donar-list" },
+        { icon: <BsGraphUp className="h-5 w-5" />, label: "Project Details", Link: "/project-details" },
+        { icon: <LuCircleDollarSign className="h-5 w-5" />, label: "Budgets", Link: "/budgets" },
+        { icon: <FaMoneyCheckAlt className="h-5 w-5" />, label: "Fixed Costs", Link: "/fixed-cost" },
 
         {
             icon: <AiOutlineSetting className="h-5 w-5" />,
             label: "Settings",
             isDropdown: true,
             subItems: [
-                { label: "Slider Setting", Link: "/slider" },
-                { label: "About Us", Link: "/aboutUs" },
-                { label: "Privacy Policy", Link: "/privacyPolicy" },
-                { label: "Terms & Condition", Link: "/termsCondition" },
+                { icon: <FaEdit className="h-5 w-5" />, label: "Edit Profile", Link: "/edit-profile" },
+                { icon: <MdPolicy className="h-5 w-5" />, label: "Policies", Link: "/policies" },
+                { icon: <GrAnalytics className="h-5 w-5" />, label: "Grants", Link: "/grants" },
+                { icon: <MdMenuBook className="h-5 w-5" />, label: "Blogs", Link: "/blogs" },
+                { icon: <FaQuestionCircle className="h-5 w-5" />, label: "FAQ", Link: "/faq" },
+                { icon: <MdPrivacyTip className="h-5 w-5" />, label: "Privacy Policy", Link: "/privacy-policy" },
+                { icon: <RiTerminalWindowLine className="h-5 w-5" />, label: "Terms & Condition", Link: "/terms-condition" },
             ],
         },
         { icon: <FaUsers className="h-5 w-5" />, label: "Orders Transection", Link: "/ordersTransection" },
-
-
     ];
 
     return (
@@ -94,7 +99,9 @@ const Sidebar = ({ closeDrawer }) => {
                                                 className={`py-2 px-5 cursor-pointer ${active === subItem.label ? "text-white bg-red-300 font-bold" : "text-black bg-white"}`}
                                                 onClick={() => handleSubItemClick(subItem.label)}
                                             >
-                                                {subItem.label}
+                                                <p className="flex items-center gap-2 ml-10">
+                                                    {subItem.icon}
+                                                    {subItem.label}</p>
 
                                             </div>
                                         </Link>
@@ -109,7 +116,7 @@ const Sidebar = ({ closeDrawer }) => {
                                         <Link to={subItem.Link} key={subItem.label}>
                                             <div
 
-                                                className={`py-2 px-5 cursor-pointer ${active === subItem.label ? "text-white bg-red-300 font-bold" : "text-black bg-white"}`}
+                                                className={`py-2 px-5 cursor-pointer ${active === subItem.label ? "text-white bg-red-700 font-bold" : "text-black bg-white"}`}
                                                 onClick={() => handleSubItemClick(subItem.label)}
                                             >
                                                 {subItem.label}
@@ -125,7 +132,7 @@ const Sidebar = ({ closeDrawer }) => {
                     {/* Logout */}
                     <Link className="text-black hover:text-black" to="/auth/login">
                         <div
-                            className="bg-pink-300 w-52 md:mt-20 py-3 flex justify-center items-center cursor-pointer hover:bg-red-200"
+                            className="bg-red-700 w-52 md:mt-20 py-3 flex justify-center items-center cursor-pointer hover:bg-red-500 text-white"
                             onClick={() => console.log("Logged out")}
                         >
                             <FiLogOut className="text-xl" />
